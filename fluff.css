@@ -1,0 +1,17 @@
+/* CSS declarations go here */
+#main-text {
+	display: block;
+
+	margin: auto;
+	margin-top: 10px;
+
+	/*height: 80%;*/
+	width: 95%;
+}
+
+#rate-button {
+	display: block;
+
+	margin: auto;
+	margin-top: 10px;
+}

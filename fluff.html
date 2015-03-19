@@ -1,0 +1,15 @@
+<head>
+  <title>fluff</title>
+</head>
+
+<body>
+  <h1>Welcome to The Fluff Factor!</h1>
+
+  {{> main}}
+</body>
+
+<template name="main">
+  <span id="score">{{ score }}</span>
+  <textarea name="main-text" id="main-text" placeholder="Please enter your text here"></textarea>
+  <button id="rate-button">Rate text</button>
+</template>
