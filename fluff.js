@@ -29,12 +29,14 @@ if (Meteor.isServer) {
 }
 
 getMainTextWords = function() {  
-  var mainText = $("#main-text").val();
+  var mainText = $("#main-text").text().trim();
+
   if (!mainText || mainText == "") return [];
 
   words = mainText.split(" ");
 
   // Need to sanitize input, remove unwanted chars, etc
+  words = words.filter(function(word) { return word != " " && word != "" });
 
   return words;
 };
@@ -50,4 +52,23 @@ rateWords = function(words) {
     score += rateWord(word);
   });
   return score;
+};
+
+fluffClass = function(word) {
+  var w = Words.findOne({word: word});
+  if (!w) { return "non-fluffy" }
+
+  var fluffClass = "non-fluffy"
+  if (w.fluff > 0) {
+    fluffClass = "fluffy"
+  }
+  return fluffClass;
+};
+
+synthElements = function(words) {
+  var elements = [];
+  words.forEach(function(word) {
+    elements.push('<span class="' + fluffClass(word) + '">' + word + '</span>');
+  });
+  return elements.join(" ");
 };

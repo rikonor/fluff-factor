@@ -1,12 +1,17 @@
 /* CSS declarations go here */
 #main-text {
 	display: block;
+	white-space: pre;
 
 	margin: auto;
 	margin-top: 10px;
 
-	/*height: 80%;*/
 	width: 95%;
+
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 5px;
+	outline: none;
 }
 
 #rate-button {
@@ -14,4 +19,17 @@
 
 	margin: auto;
 	margin-top: 10px;
+}
+
+.word:hover {
+	background: black;
+	color: white;
+}
+
+.non-fluffy {
+	color: black;
+}
+
+.fluffy {
+	color: red;
 }
