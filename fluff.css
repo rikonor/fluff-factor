@@ -26,10 +26,8 @@
 	color: white;
 }
 
-.non-fluffy {
-	color: black;
-}
-
-.fluffy {
-	color: red;
-}
+/* Fluff Classes */
+.fluff-0 { color: black; }
+.fluff-1 { color: yellow; }
+.fluff-2 { color: orange; }
+.fluff-3 { color: red; }

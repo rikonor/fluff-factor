@@ -1,21 +1,26 @@
 var scoreDep = new Deps.Dependency();
 
+updateText = function() {
+  $('#main-text').html(synthElements(getMainTextWords()));
+};
+
+updatePage = function() {
+  console.log("Updating page");
+  scoreDep.changed();
+  updateText();
+};
+
 if (Meteor.isClient) {
   
   Template.main.helpers({
-    score: function () {
+    score: function() {
       scoreDep.depend();
       return rateWords(getMainTextWords());
     }
   });
 
   Template.main.events({
-    'paste #main-text': function() {
-      scoreDep.changed();
-    },
-    'click #rate-button': function() {
-      scoreDep.changed();
-    }
+    'click #rate-button': updatePage
   });
 }
 
@@ -56,11 +61,11 @@ rateWords = function(words) {
 
 fluffClass = function(word) {
   var w = Words.findOne({word: word});
-  if (!w) { return "non-fluffy" }
+  if (!w) { return "fluff-0" }
 
-  var fluffClass = "non-fluffy"
+  var fluffClass = "fluff-0"
   if (w.fluff > 0) {
-    fluffClass = "fluffy"
+    fluffClass = "fluff-3"
   }
   return fluffClass;
 };
