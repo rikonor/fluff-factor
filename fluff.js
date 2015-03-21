@@ -61,6 +61,10 @@ if (Meteor.isClient) {
       }
     }
   });
+
+  Meteor.startup(function() {
+    initExample();
+  });
 }
 
 if (Meteor.isServer) {
@@ -125,4 +129,16 @@ synthElements = function(words) {
     elements.push('<span class="word ' + fluffClass(word) + '">' + word + '</span>');
   });
   return elements.join(" ");
+};
+
+initExample = function() {
+  var initText =
+    "Welcome to the fluff factor. " +
+    "Please feel free to use this website to get a fluff score of any text. " +
+    "Click any word to see it's current fluff score. " +
+    "Simply paste your text and click 'Rate text' to see which words are fluffing up your text. " +
+    "The amazing nimbus 2000 is truly asounding"
+
+  $('#main-text').text(initText);
+  updatePage();
 };
