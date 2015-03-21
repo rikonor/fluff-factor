@@ -1,4 +1,4 @@
-var scoreDep = new Deps.Dependency();
+var textDep = new Deps.Dependency();
 
 updateText = function() {
   $('#main-text').html(synthElements(getMainTextWords()));
@@ -6,7 +6,7 @@ updateText = function() {
 
 updatePage = function() {
   console.log("Updating page");
-  scoreDep.changed();
+  textDep.changed();
   updateText();
 };
 
@@ -14,8 +14,12 @@ if (Meteor.isClient) {
   
   Template.main.helpers({
     score: function() {
-      scoreDep.depend();
+      textDep.depend();
       return rateWords(getMainTextWords());
+    },
+    wordsCount: function() {
+      textDep.depend();
+      return getMainTextWords().length;
     }
   });
 
@@ -61,12 +65,17 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    // code to run on server at startup
     // MockWords.forEach(function(word) {
     //   Words.insert(word);
     // });
   });
 }
+
+sanitizeWord = function(word) {
+  var startIndex = word.search(/\w/g);
+  var endIndex = word.length - word.split('').reverse().join('').search(/\w/g);
+  return word.substr(startIndex, endIndex).toLowerCase();
+};
 
 getMainTextWords = function() {  
   var mainText = $("#main-text").text().trim();
@@ -76,6 +85,7 @@ getMainTextWords = function() {
   words = mainText.split(" ");
 
   // Need to sanitize input, remove unwanted chars, etc
+  words = words.map(function(word) { return sanitizeWord(word); });
   words = words.filter(function(word) { return word != " " && word != "" });
 
   return words;
@@ -99,7 +109,11 @@ fluffClass = function(word) {
   if (!w) { return "fluff-0" }
 
   var fluffClass = "fluff-0"
-  if (w.fluff > 0) {
+  if (w.fluff > 0 && w.fluff <= 1) {
+    fluffClass = "fluff-1"
+  } else if (w.fluff > 1 && w.fluff <= 2) {
+    fluffClass = "fluff-2"
+  } else if (w.fluff > 2) {
     fluffClass = "fluff-3"
   }
   return fluffClass;
@@ -112,16 +126,3 @@ synthElements = function(words) {
   });
   return elements.join(" ");
 };
-
-// wordMenu = function(word) {
-//   console.log("Chosen word:", word);
-//   var w = Words.findOne({word: word});
-//   w = w ? w : {word: word, fluff: 0};
-//   console.log(w);
-//   if (w._id) {
-//     Words.update({_id: w._id}, {$set: {fluff: w.fluff + 1}});
-//   } else {
-//     w.fluff += 1;
-//     Words.insert(w);
-//   }
-// };

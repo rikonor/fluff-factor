@@ -21,13 +21,13 @@
 	margin-top: 10px;
 }
 
-.word:hover {
-	background: black;
-	color: white;
-}
-
 /* Fluff Classes */
 .fluff-0 { color: black; }
 .fluff-1 { color: yellow; }
 .fluff-2 { color: orange; }
 .fluff-3 { color: red; }
+
+.fluff-0:hover { color: white; background: black; }
+.fluff-1:hover { color: white; background: yellow; }
+.fluff-2:hover { color: white; background: orange; }
+.fluff-3:hover { color: white; background: red; }

@@ -10,7 +10,7 @@
 
 <template name="main">
   {{> wordMenu }}
-  <p>Fluff score is: <span id="score">{{ score }}</span></p>
+  <p>Fluff score is: <span id="score">{{ score }} (out of {{ wordsCount }} words)</span></p>
   <div id="main-text" contenteditable="true"></div>
 
   <button id="rate-button">Rate text</button>
