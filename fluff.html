@@ -9,8 +9,17 @@
 </body>
 
 <template name="main">
+  {{> wordMenu }}
   <p>Fluff score is: <span id="score">{{ score }}</span></p>
   <div id="main-text" contenteditable="true"></div>
 
   <button id="rate-button">Rate text</button>
+</template>
+
+<template name="wordMenu">
+  <div>
+    <p>Chosen word: {{ chosenWord }}, fluff: {{ chosenWordScore }}</p>
+    <button id="vote-up">Vote up</button>
+    <button id="vote-down">Vote down</button> 
+  </div>
 </template>
